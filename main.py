@@ -29,15 +29,18 @@ def get_user_data(username):
         print("Request failed with status:", response.status_code)
         return None
 
-def display_profile_picture(image_url):
+def display_profile_picture(image_url, width=None, height=None):
     # Retrieve the image data
     image_response = requests.get(image_url, stream=True)
     
     # Check the image response status
     if image_response.status_code == 200:
-        # Save the image locally
+        # Open the image with PIL
+        image = Image.open(image_response.raw)
+        
+        # Save the resized image locally
         with open("profile_image.jpg", "wb") as f:
-            f.write(image_response.content)
+            image.save(f, "JPEG")
         
         # Display the image in the terminal using imgcat
         subprocess.run(["imgcat", "profile_image.jpg"])
@@ -59,9 +62,10 @@ def main():
     user_data = get_user_data(username)
     if user_data:
         # Access the medium version of the image URL
-        image_url_medium = user_data["image"]["versions"]["medium"]
+        image_url_medium = user_data["image"]["versions"]["small"]
+
         
-        # Display the profile picture
+        # Display the profile picture with resizing
         display_profile_picture(image_url_medium)
         
         # Display the current location
