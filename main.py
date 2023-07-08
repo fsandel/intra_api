@@ -2,6 +2,7 @@
 
 import env
 from check_out_user import check_out_user
+from all_users import all_user_data
 
 UID = env.uid
 SECRET = env.secret
@@ -10,7 +11,8 @@ SECRET = env.secret
 
 def main():
     '''main function'''
-    check_out_user(UID, SECRET)
+
+    all_user_data(UID, SECRET)
 
 
 if __name__ == "__main__":
