@@ -7,12 +7,14 @@ import subprocess
 from env import uid, secret
 import os
 
+
 def get_user_data(username, uid, secret):
     API_URL = "https://api.intra.42.fr"
 
     client = BackendApplicationClient(client_id=uid)
     oauth = OAuth2Session(client=client)
-    token = oauth.fetch_token(token_url=f"{API_URL}/oauth/token", client_id=uid, client_secret=secret)
+    token = oauth.fetch_token(
+        token_url=f"{API_URL}/oauth/token", client_id=uid, client_secret=secret)
 
     response = oauth.get(f"{API_URL}/v2/users/{username}")
 
@@ -22,6 +24,7 @@ def get_user_data(username, uid, secret):
     else:
         print("Request failed with status:", response.status_code)
         return None
+
 
 def display_profile_picture(image_url, width=None, height=None):
     image_response = requests.get(image_url, stream=True)
@@ -34,6 +37,7 @@ def display_profile_picture(image_url, width=None, height=None):
             os.remove("profile_image.jpg")
     else:
         print("Failed to retrieve the image.")
+
 
 def check_out_user(uid, secret):
     if len(sys.argv) < 2:

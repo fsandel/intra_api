@@ -10,11 +10,12 @@ from check_out_user import check_out_user
 
 UID = uid
 SECRET = secret
-#API_URL = "https://api.intra.42.fr"
+# API_URL = "https://api.intra.42.fr"
 
 
 def main():
     check_out_user(UID, SECRET)
+
 
 if __name__ == "__main__":
     main()
